@@ -5,7 +5,6 @@
     "Jeremy Thibeaux <jthibeaux@gmail.com>"
   ],
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -13,16 +12,27 @@
     "spec",
     "example",
     "tmp",
-    "src"
+    "src",
+    "circle.yml",
+    "Gruntfile.js"
   ],
   "dependencies": {
-    "angularjs": "1.5.5",
-    "lodash": "4.11.1",
-    "jquery": "2.2.3",
-    "font-awesome": "fontawesome#^4.6.1"
+    "angularjs": "^1.5.0",
+    "lodash": "^4.0.0",
+    "jquery": "^2.0.0",
+    "font-awesome": "fontawesome#^4.0.0"
   },
   "devDependencies": {
     "jthibeaux-jasmine-lazy": "*",
     "angular-mocks": "1.5.5"
-  }
+  },
+  "homepage": "https://github.com/jthibeaux/angular-input-table",
+  "description": "Angular directive for tabular input",
+  "main": "dist/angular_table_input.js",
+  "keywords": [
+    "angular",
+    "table",
+    "data",
+    "input"
+  ]
 }
