@@ -1,0 +1,29 @@
+.table-responsive
+  table.table(style="width:100%; table-layout:fixed")
+    thead
+      tr
+        th(ng-repeat="column in columns" ng-bind="column")
+        th(style="width:95px")
+    tbody
+      tr(ng-repeat="row in editingRows")
+        td(ng-repeat="column in columns")
+          table-input-cell(row="row" column="column" edit="row._editing")
+        td.text-right
+          .btn-group
+            button.btn.btn-default(ng-click="edit(row)" ng-if="!row._editing")
+              i.fa.fa-pencil
+            button.btn.btn-danger(ng-click="callRemove(row)" ng-if="!row._editing")
+              i.fa.fa-times
+            button.btn.btn-primary(ng-click="callSave(row)" ng-if="row._editing")
+              i.fa.fa-check
+            button.btn.btn-default(ng-click="cancel(row)" ng-if="row._editing")
+              i.fa.fa-undo
+      tr
+        td(ng-repeat="column in columns")
+          table-input-cell(row="addRow" column="column" edit="true")        
+        td.text-right
+          .btn-group
+            button.btn.btn-primary(ng-click="callAdd()")
+              i.fa.fa-plus
+            button.btn.btn-default(ng-click="clearAdd()")
+              i.fa.fa-undo
