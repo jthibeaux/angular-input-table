@@ -11,6 +11,7 @@ describe 'tableInput', ->
     [row]
   lazy 'columns', ->
     ['columnName']
+  lazy 'removeContinue', -> true
 
   lazy 'fixture', ->
     """
@@ -23,7 +24,8 @@ describe 'tableInput', ->
     ></table-input>
     """
 
-  lazy 'removeSpy', -> jasmine.createSpy('remove')
+  lazy 'removeSpy', ->
+    jasmine.createSpy('remove').and.returnValue(removeContinue)
 
   lazy 'saveSpy', -> jasmine.createSpy('save').and.callFake (row)-> return row
 
@@ -66,6 +68,12 @@ describe 'tableInput', ->
     describe 'remove fails', ->
       lazy 'removeSpy', ->
         jasmine.createSpy('remove').and.returnValue($q.reject())
+
+      it 'does not remove item from table', ->
+        expect(element.find('tr:eq(1)').text()).toContain(cellData)
+
+    describe 'remove continue is false', ->
+      lazy 'removeContinue', -> false
 
       it 'does not remove item from table', ->
         expect(element.find('tr:eq(1)').text()).toContain(cellData)

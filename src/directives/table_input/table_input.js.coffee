@@ -43,6 +43,8 @@ angular
         )
         .then (savedRow)->
           row._editing = false
+          return unless savedRow?
+
           copyRow(scope.rows[index], savedRow)
           copyRow(scope.editingRows[index], savedRow)
 
@@ -54,13 +56,15 @@ angular
             index: index
           )
         )
-        .then ->
+        .then (removeContinue)->
+          return unless removeContinue
           scope.editingRows.splice(index, 1)
           scope.rows.splice(index, 1)
 
       scope.callAdd = ->
         $q.when(scope.add(row: scope.addRow))
         .then (addedRow)->
+          return unless addedRow?
           scope.rows.push(addedRow)
           scope.addRow = {}
 

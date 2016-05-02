@@ -43,6 +43,9 @@
               index: index
             })).then(function(savedRow) {
               row._editing = false;
+              if (savedRow == null) {
+                return;
+              }
               copyRow(scope.rows[index], savedRow);
               return copyRow(scope.editingRows[index], savedRow);
             });
@@ -53,7 +56,10 @@
             return $q.when(scope.remove({
               row: scope.rows[index],
               index: index
-            })).then(function() {
+            })).then(function(removeContinue) {
+              if (!removeContinue) {
+                return;
+              }
               scope.editingRows.splice(index, 1);
               return scope.rows.splice(index, 1);
             });
@@ -62,6 +68,9 @@
             return $q.when(scope.add({
               row: scope.addRow
             })).then(function(addedRow) {
+              if (addedRow == null) {
+                return;
+              }
               scope.rows.push(addedRow);
               return scope.addRow = {};
             });
