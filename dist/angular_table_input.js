@@ -16,7 +16,7 @@
           add: '&'
         },
         link: function(scope) {
-          var copyRow, rowIndex, updateRows;
+          var copyRow, updateRows;
           updateRows = function() {
             return scope.editingRows = _.map(scope.rows, function(row) {
               return _.pick(row, scope.columns);
@@ -25,19 +25,14 @@
           copyRow = function(to, from) {
             return _.merge(to, _.pick(from, scope.columns));
           };
-          rowIndex = function(row) {
-            return scope.editingRows.indexOf(row);
-          };
           scope.edit = function(row) {
             return row._editing = true;
           };
-          scope.cancel = function(row) {
+          scope.cancel = function(row, index) {
             row._editing = false;
-            return copyRow(row, scope.rows[rowIndex(row)]);
+            return copyRow(row, scope.rows[index]);
           };
-          scope.callSave = function(row) {
-            var index;
-            index = rowIndex(row);
+          scope.callSave = function(row, index) {
             return $q.when(scope.save({
               row: row,
               index: index
@@ -50,9 +45,7 @@
               return copyRow(scope.editingRows[index], savedRow);
             });
           };
-          scope.callRemove = function(row) {
-            var index;
-            index = rowIndex(row);
+          scope.callRemove = function(row, index) {
             return $q.when(scope.remove({
               row: scope.rows[index],
               index: index
@@ -124,9 +117,9 @@ angular.module('angular-table-input').run(['$templateCache', function($templateC
     "        <td class=\"text-right\">\n" +
     "          <div class=\"btn-group\">\n" +
     "            <button class=\"btn btn-default\" ng-click=\"edit(row)\" ng-if=\"!row._editing\"><i class=\"fa fa-pencil\"></i></button>\n" +
-    "            <button class=\"btn btn-danger\" ng-click=\"callRemove(row)\" ng-if=\"!row._editing\"><i class=\"fa fa-times\"></i></button>\n" +
-    "            <button class=\"btn btn-primary\" ng-click=\"callSave(row)\" ng-if=\"row._editing\"><i class=\"fa fa-check\"></i></button>\n" +
-    "            <button class=\"btn btn-default\" ng-click=\"cancel(row)\" ng-if=\"row._editing\"><i class=\"fa fa-undo\"></i></button>\n" +
+    "            <button class=\"btn btn-danger\" ng-click=\"callRemove(row, $index)\" ng-if=\"!row._editing\"><i class=\"fa fa-times\"></i></button>\n" +
+    "            <button class=\"btn btn-primary\" ng-click=\"callSave(row, $index)\" ng-if=\"row._editing\"><i class=\"fa fa-check\"></i></button>\n" +
+    "            <button class=\"btn btn-default\" ng-click=\"cancel(row, $index)\" ng-if=\"row._editing\"><i class=\"fa fa-undo\"></i></button>\n" +
     "          </div>\n" +
     "        </td>\n" +
     "      </tr>\n" +

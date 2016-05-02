@@ -12,11 +12,11 @@
           .btn-group
             button.btn.btn-default(ng-click="edit(row)" ng-if="!row._editing")
               i.fa.fa-pencil
-            button.btn.btn-danger(ng-click="callRemove(row)" ng-if="!row._editing")
+            button.btn.btn-danger(ng-click="callRemove(row, $index)" ng-if="!row._editing")
               i.fa.fa-times
-            button.btn.btn-primary(ng-click="callSave(row)" ng-if="row._editing")
+            button.btn.btn-primary(ng-click="callSave(row, $index)" ng-if="row._editing")
               i.fa.fa-check
-            button.btn.btn-default(ng-click="cancel(row)" ng-if="row._editing")
+            button.btn.btn-default(ng-click="cancel(row, $index)" ng-if="row._editing")
               i.fa.fa-undo
       tr
         td(ng-repeat="column in columns")

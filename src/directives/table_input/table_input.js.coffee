@@ -23,18 +23,14 @@ angular
           _.pick(from, scope.columns)
         )
 
-      rowIndex = (row)->
-        scope.editingRows.indexOf(row)
-
       scope.edit = (row)->
         row._editing = true
 
-      scope.cancel = (row)->
+      scope.cancel = (row, index)->
         row._editing = false
-        copyRow(row, scope.rows[rowIndex(row)])
+        copyRow(row, scope.rows[index])
 
-      scope.callSave = (row)->
-        index = rowIndex(row)
+      scope.callSave = (row, index)->
         $q.when(
           scope.save(
             row: row
@@ -48,8 +44,7 @@ angular
           copyRow(scope.rows[index], savedRow)
           copyRow(scope.editingRows[index], savedRow)
 
-      scope.callRemove = (row)->
-        index = rowIndex(row)
+      scope.callRemove = (row, index)->
         $q.when(
           scope.remove(
             row: scope.rows[index]
