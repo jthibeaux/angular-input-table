@@ -10,8 +10,10 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "spec",
+    "example",
+    "tmp",
+    "src"
   ],
   "dependencies": {
     "angularjs": "1.5.5",
