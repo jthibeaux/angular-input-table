@@ -43,7 +43,7 @@
               index: index
             })).then(function(savedRow) {
               row._editing = false;
-              if (savedRow == null) {
+              if (!savedRow) {
                 return;
               }
               copyRow(scope.rows[index], savedRow);
@@ -68,7 +68,7 @@
             return $q.when(scope.add({
               row: scope.addRow
             })).then(function(addedRow) {
-              if (addedRow == null) {
+              if (!addedRow) {
                 return;
               }
               scope.rows.push(addedRow);
