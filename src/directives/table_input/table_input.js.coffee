@@ -34,16 +34,26 @@ angular
         copyRow(row, scope.rows[rowIndex(row)])
 
       scope.callSave = (row)->
-        $q.when(scope.save(row: row))
+        index = rowIndex(row)
+        $q.when(
+          scope.save(
+            row: row
+            index: index
+          )
+        )
         .then (savedRow)->
           row._editing = false
-          index = rowIndex(row)
           copyRow(scope.rows[index], savedRow)
           copyRow(scope.editingRows[index], savedRow)
 
       scope.callRemove = (row)->
         index = rowIndex(row)
-        $q.when(scope.remove(row: scope.rows[index]))
+        $q.when(
+          scope.remove(
+            row: scope.rows[index]
+            index: index
+          )
+        )
         .then ->
           scope.editingRows.splice(index, 1)
           scope.rows.splice(index, 1)

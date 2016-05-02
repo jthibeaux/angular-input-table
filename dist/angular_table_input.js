@@ -36,12 +36,13 @@
             return copyRow(row, scope.rows[rowIndex(row)]);
           };
           scope.callSave = function(row) {
+            var index;
+            index = rowIndex(row);
             return $q.when(scope.save({
-              row: row
+              row: row,
+              index: index
             })).then(function(savedRow) {
-              var index;
               row._editing = false;
-              index = rowIndex(row);
               copyRow(scope.rows[index], savedRow);
               return copyRow(scope.editingRows[index], savedRow);
             });
@@ -50,7 +51,8 @@
             var index;
             index = rowIndex(row);
             return $q.when(scope.remove({
-              row: scope.rows[index]
+              row: scope.rows[index],
+              index: index
             })).then(function() {
               scope.editingRows.splice(index, 1);
               return scope.rows.splice(index, 1);
